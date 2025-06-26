@@ -1,8 +1,8 @@
 name: weekly-digest
 on:
   schedule:
-    - cron:  '0 16 * * MON'   # Runs every Monday at 09:00 PT
-  workflow_dispatch:           # Allows manual trigger
+    - cron:  '0 16 * * MON'   # Every Monday 09:00 PT
+  workflow_dispatch:           # Manual trigger
 jobs:
   run-agent:
     runs-on: ubuntu-latest
