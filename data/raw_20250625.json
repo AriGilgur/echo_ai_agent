@@ -1,0 +1,157 @@
+[
+  {
+    "source": "pubmed",
+    "papers": []
+  },
+  {
+    "source": "arxiv",
+    "papers": [
+      {
+        "title": "Self-supervised Learning of Echocardiographic Video Representations via Online Cluster Distillation",
+        "summary": "Self-supervised learning (SSL) has achieved major advances in natural images\nand video understanding, but challenges remain in domains like echocardiography\n(heart ultrasound) due to subtle anatomical structures, complex temporal\ndynamics, and the current lack of domain-specific pre-trained models. Existing\nSSL approaches such as contrastive, masked modeling, and clustering-based\nmethods struggle with high intersample similarity, sensitivity to low PSNR\ninputs common in ultrasound, or aggressive augmentations that distort\nclinically relevant features. We present DISCOVR (Distilled Image Supervision\nfor Cross Modal Video Representation), a self-supervised dual branch framework\nfor cardiac ultrasound video representation learning. DISCOVR combines a\nclustering-based video encoder that models temporal dynamics with an online\nimage encoder that extracts fine-grained spatial semantics. These branches are\nconnected through a semantic cluster distillation loss that transfers\nanatomical knowledge from the evolving image encoder to the video encoder,\nenabling temporally coherent representations enriched with fine-grained\nsemantic understanding. Evaluated on six echocardiography datasets spanning\nfetal, pediatric, and adult populations, DISCOVR outperforms both specialized\nvideo anomaly detection methods and state-of-the-art video-SSL baselines in\nzero-shot and linear probing setups, and achieves superior segmentation\ntransfer.",
+        "authors": [
+          "Divyanshu Mishra",
+          "Mohammadreza Salehi",
+          "Pramit Saha",
+          "Olga Patey",
+          "Aris T. Papageorghiou",
+          "Yuki M. Asano",
+          "J. Alison Noble"
+        ],
+        "published": "2025-06-13",
+        "link": "http://arxiv.org/abs/2506.11777v1"
+      },
+      {
+        "title": "DCD: A Semantic Segmentation Model for Fetal Ultrasound Four-Chamber View",
+        "summary": "Accurate segmentation of anatomical structures in the apical four-chamber\n(A4C) view of fetal echocardiography is essential for early diagnosis and\nprenatal evaluation of congenital heart disease (CHD). However, precise\nsegmentation remains challenging due to ultrasound artifacts, speckle noise,\nanatomical variability, and boundary ambiguity across different gestational\nstages. To reduce the workload of sonographers and enhance segmentation\naccuracy, we propose DCD, an advanced deep learning-based model for automatic\nsegmentation of key anatomical structures in the fetal A4C view. Our model\nincorporates a Dense Atrous Spatial Pyramid Pooling (Dense ASPP) module,\nenabling superior multi-scale feature extraction, and a Convolutional Block\nAttention Module (CBAM) to enhance adaptive feature representation. By\neffectively capturing both local and global contextual information, DCD\nachieves precise and robust segmentation, contributing to improved prenatal\ncardiac assessment.",
+        "authors": [
+          "Donglian Li",
+          "Hui Guo",
+          "Minglang Chen",
+          "Huizhen Chen",
+          "Jialing Chen",
+          "Bocheng Liang",
+          "Pengchen Liang",
+          "Ying Tan"
+        ],
+        "published": "2025-06-10",
+        "link": "http://arxiv.org/abs/2506.08534v1"
+      },
+      {
+        "title": "Encoding of Demographic and Anatomical Information in Chest X-Ray-based Severe Left Ventricular Hypertrophy Classifiers",
+        "summary": "While echocardiography and MRI are clinical standards for evaluating cardiac\nstructure, their use is limited by cost and accessibility.We introduce a direct\nclassification framework that predicts severe left ventricular hypertrophy from\nchest X-rays, without relying on anatomical measurements or demographic inputs.\nOur approach achieves high AUROC and AUPRC, and employs Mutual Information\nNeural Estimation to quantify feature expressivity. This reveals clinically\nmeaningful attribute encoding and supports transparent model interpretation.",
+        "authors": [
+          "Basudha Pal",
+          "Rama Chellappa",
+          "Muhammad Umair"
+        ],
+        "published": "2025-05-31",
+        "link": "http://arxiv.org/abs/2506.03192v1"
+      },
+      {
+        "title": "Interpretable phenotyping of Heart Failure patients with Dutch discharge letters",
+        "summary": "Objective: Heart failure (HF) patients present with diverse phenotypes\naffecting treatment and prognosis. This study evaluates models for phenotyping\nHF patients based on left ventricular ejection fraction (LVEF) classes, using\nstructured and unstructured data, assessing performance and interpretability.\n  Materials and Methods: The study analyzes all HF hospitalizations at both\nAmsterdam UMC hospitals (AMC and VUmc) from 2015 to 2023 (33,105\nhospitalizations, 16,334 patients). Data from AMC were used for model training,\nand from VUmc for external validation. The dataset was unlabelled and included\ntabular clinical measurements and discharge letters. Silver labels for LVEF\nclasses were generated by combining diagnosis codes, echocardiography results,\nand textual mentions. Gold labels were manually annotated for 300 patients for\ntesting. Multiple Transformer-based (black-box) and Aug-Linear (white-box)\nmodels were trained and compared with baselines on structured and unstructured\ndata. To evaluate interpretability, two clinicians annotated 20 discharge\nletters by highlighting information they considered relevant for LVEF\nclassification. These were compared to SHAP and LIME explanations from\nblack-box models and the inherent explanations of Aug-Linear models.\n  Results: BERT-based and Aug-Linear models, using discharge letters alone,\nachieved the highest classification results (AUC=0.84 for BERT, 0.81 for\nAug-Linear on external validation), outperforming baselines. Aug-Linear\nexplanations aligned more closely with clinicians' explanations than post-hoc\nexplanations on black-box models.\n  Conclusions: Discharge letters emerged as the most informative source for\nphenotyping HF patients. Aug-Linear models matched black-box performance while\nproviding clinician-aligned interpretability, supporting their use in\ntransparent clinical decision-making.",
+        "authors": [
+          "Vittorio Torri",
+          "Machteld J. Boonstra",
+          "Marielle C. van de Veerdonk",
+          "Deborah N. Kalkman",
+          "Alicia Uijl",
+          "Francesca Ieva",
+          "Ameen Abu-Hanna",
+          "Folkert W. Asselbergs",
+          "Iacer Calixto"
+        ],
+        "published": "2025-05-30",
+        "link": "http://arxiv.org/abs/2505.24619v1"
+      },
+      {
+        "title": "BOTM: Echocardiography Segmentation via Bi-directional Optimal Token Matching",
+        "summary": "Existed echocardiography segmentation methods often suffer from anatomical\ninconsistency challenge caused by shape variation, partial observation and\nregion ambiguity with similar intensity across 2D echocardiographic sequences,\nresulting in false positive segmentation with anatomical defeated structures in\nchallenging low signal-to-noise ratio conditions. To provide a strong\nanatomical guarantee across different echocardiographic frames, we propose a\nnovel segmentation framework named BOTM (Bi-directional Optimal Token Matching)\nthat performs echocardiography segmentation and optimal anatomy transportation\nsimultaneously. Given paired echocardiographic images, BOTM learns to match two\nsets of discrete image tokens by finding optimal correspondences from a novel\nanatomical transportation perspective. We further extend the token matching\ninto a bi-directional cross-transport attention proxy to regulate the preserved\nanatomical consistency within the cardiac cyclic deformation in temporal\ndomain. Extensive experimental results show that BOTM can generate stable and\naccurate segmentation outcomes (e.g. -1.917 HD on CAMUS2H LV, +1.9% Dice on\nTED), and provide a better matching interpretation with anatomical consistency\nguarantee.",
+        "authors": [
+          "Zhihua Liu",
+          "Lei Tong",
+          "Xilin He",
+          "Che Liu",
+          "Rossella Arcucci",
+          "Chen Jin",
+          "Huiyu Zhou"
+        ],
+        "published": "2025-05-23",
+        "link": "http://arxiv.org/abs/2505.18052v1"
+      },
+      {
+        "title": "Machine Learning-Based Analysis of ECG and PCG Signals for Rheumatic Heart Disease Detection: A Scoping Review (2015-2025)",
+        "summary": "Objective: To conduct a systematic assessment of machine learning\napplications that utilize electrocardiogram (ECG) and heart sound data in the\ndevelopment of cost-effective detection tools for rheumatic heart disease (RHD)\nfrom the year 2015 to 2025, thereby supporting the World Heart Federation's \"25\nby 25\" mortality reduction objective through the creation of alternatives to\nechocardiography in underserved regions. Methods: Following PRISMA-ScR\nguidelines, we conducted a comprehensive search across PubMed, IEEE Xplore,\nScopus, and Embase for peer-reviewed literature focusing on ML-based ECG/PCG\nanalysis for RHD detection. Two independent reviewers screened studies, and\ndata extraction focused on methodology, validation approaches, and performance\nmetrics. Results: Analysis of 37 relevant studies revealed that convolutional\nneural networks (CNNs) have become the predominant technology in post-2020\nimplementations, achieving a median accuracy of 93.7%. However, 73% of studies\nrelied on single-center datasets, only 10.8% incorporated external validation,\nand none addressed cost-effectiveness. Performance varied markedly across\ndifferent valvular lesions, and despite 44% of studies originating from endemic\nregions, significant gaps persisted in implementation science and demographic\ndiversity. Conclusion: While ML-based ECG/PCG analysis shows promise for RHD\ndetection, substantial methodological limitations hinder clinical translation.\nFuture research must prioritize standardized benchmarking frameworks,\nmultimodal architectures, cost-effectiveness assessments, and prospective\ntrials in endemic settings. Significance: This review provides a critical\nroadmap for developing accessible ML-based RHD screening tools to help bridge\nthe diagnostic gap in resourceconstrained settings where conventional\nauscultation misses up to 90% of cases and echocardiography remains\ninaccessible.",
+        "authors": [
+          "Damilare Emmanuel Olatunji",
+          "Julius Dona Zannu",
+          "Carine Pierrette Mukamakuza",
+          "Godbright Nixon Uiso",
+          "Mona Mamoun Mubarak Aman",
+          "John Bosco Thuo",
+          "Chol Buol",
+          "Nchofon Tagha Ghogomu",
+          "Evelyne Umubyeyi"
+        ],
+        "published": "2025-05-17",
+        "link": "http://arxiv.org/abs/2505.18182v1"
+      },
+      {
+        "title": "S2MNet: Speckle-To-Mesh Net for Three-Dimensional Cardiac Morphology Reconstruction via Echocardiogram",
+        "summary": "Echocardiogram is the most commonly used imaging modality in cardiac\nassessment duo to its non-invasive nature, real-time capability, and\ncost-effectiveness. Despite its advantages, most clinical echocardiograms\nprovide only two-dimensional views, limiting the ability to fully assess\ncardiac anatomy and function in three dimensions. While three-dimensional\nechocardiography exists, it often suffers from reduced resolution, limited\navailability, and higher acquisition costs. To overcome these challenges, we\npropose a deep learning framework S2MNet that reconstructs continuous and\nhigh-fidelity 3D heart models by integrating six slices of routinely acquired\n2D echocardiogram views. Our method has three advantages. First, our method\navoid the difficulties on training data acquasition by simulate six of 2D\nechocardiogram images from corresponding slices of a given 3D heart mesh.\nSecond, we introduce a deformation field-based method, which avoid spatial\ndiscontinuities or structural artifacts in 3D echocardiogram reconstructions.\nWe validate our method using clinically collected echocardiogram and\ndemonstrate that our estimated left ventricular volume, a key clinical\nindicator of cardiac function, is strongly correlated with the doctor measured\nGLPS, a clinical measurement that should demonstrate a negative correlation\nwith LVE in medical theory. This association confirms the reliability of our\nproposed 3D construction method.",
+        "authors": [
+          "Xilin Gong",
+          "Yongkai Chen",
+          "Shushan Wu",
+          "Fang Wang",
+          "Ping Ma",
+          "Wenxuan Zhong"
+        ],
+        "published": "2025-05-09",
+        "link": "http://arxiv.org/abs/2505.06105v1"
+      },
+      {
+        "title": "Pose Estimation for Intra-cardiac Echocardiography Catheter via AI-Based Anatomical Understanding",
+        "summary": "Intra-cardiac Echocardiography (ICE) plays a crucial role in\nElectrophysiology (EP) and Structural Heart Disease (SHD) interventions by\nproviding high-resolution, real-time imaging of cardiac structures. However,\nexisting navigation methods rely on electromagnetic (EM) tracking, which is\nsusceptible to interference and position drift, or require manual adjustments\nbased on operator expertise. To overcome these limitations, we propose a novel\nanatomy-aware pose estimation system that determines the ICE catheter position\nand orientation solely from ICE images, eliminating the need for external\ntracking sensors. Our approach leverages a Vision Transformer (ViT)-based deep\nlearning model, which captures spatial relationships between ICE images and\nanatomical structures. The model is trained on a clinically acquired dataset of\n851 subjects, including ICE images paired with position and orientation labels\nnormalized to the left atrium (LA) mesh. ICE images are patchified into 16x16\nembeddings and processed through a transformer network, where a [CLS] token\nindependently predicts position and orientation via separate linear layers. The\nmodel is optimized using a Mean Squared Error (MSE) loss function, balancing\npositional and orientational accuracy. Experimental results demonstrate an\naverage positional error of 9.48 mm and orientation errors of (16.13 deg, 8.98\ndeg, 10.47 deg) across x, y, and z axes, confirming the model accuracy.\nQualitative assessments further validate alignment between predicted and target\nviews within 3D cardiac meshes. This AI-driven system enhances procedural\nefficiency, reduces operator workload, and enables real-time ICE catheter\nlocalization for tracking-free procedures. The proposed method can function\nindependently or complement existing mapping systems like CARTO, offering a\ntransformative approach to ICE-guided interventions.",
+        "authors": [
+          "Jaeyoung Huh",
+          "Ankur Kapoor",
+          "Young-Ho Kim"
+        ],
+        "published": "2025-05-07",
+        "link": "http://arxiv.org/abs/2505.07851v1"
+      },
+      {
+        "title": "EchoNet-Quality: Denoising Echocardiograms via Deep Generative Modeling of Ultrasound Noise",
+        "summary": "Echocardiography (echo), or cardiac ultrasound, is the most widely used\nimaging modality for cardiac form and function due to its relatively low cost,\nrapid acquisition time, and non-invasive nature. However, ultrasound\nacquisitions are often limited by artifacts and noise that hinder diagnostic\ninterpretation in clinical settings. Existing methodologies for denoising echos\nconsist solely of traditional filtering-based algorithms or deep learning\nmethods developed on radio-frequency (RF) signals which prevents clinical\napplicability and scalability. To address these limitations, we introduce the\nfirst deep generative model capable of simulating ultrasound noise developed on\nB-mode data. Using this generative model, we develop a synthetic dataset of\npaired clean and noisy echo images to train a downstream model for real-world\nimage denoising and demonstrate state-of-the-art performance in both internal\nand external experiments. In both held-out test sets, our method results in\necho images with higher gCNR in comparison to noisy image counterparts and\nimages derived from a comparable method which is consistent with provided\nvisual comparisons. Our experiments showcase the potential of our method for\nfuture clinical use to improve the quality of echo acquisitions. To encourage\nfurther research into the field, we release our source code and model weights\nat https://github.com/echonet/image_quality.",
+        "authors": [
+          "David Choi",
+          "Milos Vukadinovic",
+          "Bryan He",
+          "Christina Binder",
+          "Yuki Sahashi",
+          "David Ouyang"
+        ],
+        "published": "2025-04-29",
+        "link": "http://arxiv.org/abs/2505.00043v2"
+      },
+      {
+        "title": "Video CLIP Model for Multi-View Echocardiography Interpretation",
+        "summary": "Echocardiography involves recording videos of the heart using ultrasound,\nenabling clinicians to evaluate its condition. Recent advances in large-scale\nvision-language models (VLMs) have garnered attention for automating the\ninterpretation of echocardiographic videos. However, most existing VLMs\nproposed for medical interpretation thus far rely on single-frame (i.e., image)\ninputs. Consequently, these image-based models often exhibit lower diagnostic\naccuracy for conditions identifiable through cardiac motion. Moreover,\nechocardiographic videos are recorded from various views that depend on the\ndirection of ultrasound emission, and certain views are more suitable than\nothers for interpreting specific conditions. Incorporating multiple views could\npotentially yield further improvements in accuracy. In this study, we developed\na video-language model that takes five different views and full video sequences\nas input, training it on pairs of echocardiographic videos and clinical reports\nfrom 60,747 cases. Our experiments demonstrate that this expanded approach\nachieves higher interpretation accuracy than models trained with only\nsingle-view videos or with still images.",
+        "authors": [
+          "Ryo Takizawa",
+          "Satoshi Kodera",
+          "Tempei Kabayama",
+          "Ryo Matsuoka",
+          "Yuta Ando",
+          "Yuto Nakamura",
+          "Haruki Settai",
+          "Norihiko Takeda"
+        ],
+        "published": "2025-04-26",
+        "link": "http://arxiv.org/abs/2504.18800v1"
+      }
+    ]
+  }
+]
