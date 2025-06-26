@@ -1,27 +1,18 @@
 name: weekly-digest
-
 on:
   schedule:
-    - cron:  '0 16 * * MON'   # Runs every Monday at 16:00 UTC (09:00 PT)
-  workflow_dispatch:          # Allows manual trigger
-
+    - cron:  '0 16 * * MON'   # Runs every Monday at 09:00 PT
+  workflow_dispatch:           # Allows manual trigger
 jobs:
   run-agent:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - run: pip install -r requirements.txt
-
-      - run: |
-          python agent/search.py
-          python agent/filter_and_dedupe.py
-          python agent/summarize_and_prepare_email.py
-          python agent/send_digest_email.py
+      - run: python agent/main.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
