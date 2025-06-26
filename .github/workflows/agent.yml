@@ -1,8 +1,8 @@
 name: weekly-digest
 on:
   schedule:
-    - cron:  '0 16 * * MON'   # Every Monday 09:00 PT
-  workflow_dispatch:           # Manual trigger
+    - cron: '0 16 * * MON'   # Every Monday 09:00 PT
+  workflow_dispatch:         # Manual trigger
 jobs:
   run-agent:
     runs-on: ubuntu-latest
@@ -17,3 +17,4 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           RECIPIENTS: ${{ secrets.RECIPIENTS }}
+
