@@ -3,27 +3,27 @@ name: weekly-digest
 on:
   schedule:
     - cron: '0 16 * * MON'  # Every Monday at 11:00am Eastern
-  workflow_dispatch:        # Allow manual trigger
+  workflow_dispatch:        # Manual run option
 
 jobs:
   run-agent:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-    - name: Run the agent
-      run: python agent/main.py
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-        RECIPIENTS: ${{ secrets.RECIPIENTS }}
+      - name: Run email agent
+        run: python agent/main.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          RECIPIENTS: ${{ secrets.RECIPIENTS }}
