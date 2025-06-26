@@ -2,15 +2,16 @@ name: weekly-digest
 
 on:
   schedule:
-    - cron: '0 16 * * MON'   # Every Monday at 16:00 UTC (adjust timezone if needed)
-  workflow_dispatch:         # Manual trigger from GitHub UI
+    - cron: '0 16 * * MON'  # Every Monday at 11:00am Eastern
+  workflow_dispatch:        # Allow manual trigger
 
 jobs:
   run-agent:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -20,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Run agent script
+    - name: Run the agent
       run: python agent/main.py
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
