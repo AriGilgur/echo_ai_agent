@@ -1,7 +1,7 @@
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from agent.search import fetch_pubmed_articles, fetch_arxiv_articles
+from agent.search import search_pubmed, search_arxiv, save_raw_results
 from agent.extract_authors import extract_emails
 from agent.summarize_and_prepare_email import generate_digest_html
 
@@ -21,9 +21,16 @@ def send_digest_email(html_content):
 
 def main():
     print("Fetching articles...")
-    pubmed_articles = fetch_pubmed_articles("echocardiography AI", max_results=10)
-    arxiv_articles = fetch_arxiv_articles("echocardiography AI", max_results=10)
+    pubmed_results = search_pubmed()
+    arxiv_results = search_arxiv()
 
+    # Save raw results (optional but helpful for debugging)
+    save_raw_results(pubmed_results, arxiv_results)
+
+    # Extract papers list from results
+    pubmed_articles = pubmed_results.get('papers', [])
+    arxiv_articles = arxiv_results.get('papers', [])
+    
     all_articles = pubmed_articles + arxiv_articles
     print(f"Total articles fetched: {len(all_articles)}")
 
