@@ -3,7 +3,6 @@
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from agent.search import search_pubmed, search_arxiv, save_raw_results
 
 def format_papers(papers, source):
     if not papers["papers"]:
