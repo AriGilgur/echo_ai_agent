@@ -1,9 +1,10 @@
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from agent.search import search_pubmed, search_arxiv, save_raw_results
-from agent.extract_authors import extract_emails
-from agent.summarize_and_prepare_email import generate_digest_html
+from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_raw_results
+# Assuming you have these modules, otherwise comment these out or implement accordingly:
+# from agent.extract_authors import extract_emails
+# from agent.summarize_and_prepare_email import generate_digest_html
 
 def send_digest_email(html_content):
     message = Mail(
@@ -21,23 +22,24 @@ def send_digest_email(html_content):
 
 def main():
     print("Fetching articles...")
-    pubmed_results = search_pubmed()
-    arxiv_results = search_arxiv()
+    pubmed_articles = fetch_pubmed_articles()
+    arxiv_articles = fetch_arxiv_articles()
 
-    # Save raw results (optional but helpful for debugging)
-    save_raw_results(pubmed_results, arxiv_results)
+    save_raw_results(pubmed_articles, arxiv_articles)
 
-    # Extract papers list from results
-    pubmed_articles = pubmed_results.get('papers', [])
-    arxiv_articles = arxiv_results.get('papers', [])
-    
     all_articles = pubmed_articles + arxiv_articles
     print(f"Total articles fetched: {len(all_articles)}")
 
-    for article in all_articles:
-        extract_emails(article)
+    # If you have extract_emails and generate_digest_html functions, uncomment these lines:
+    # for article in all_articles:
+    #     extract_emails(article)
+    #
+    # html_content = generate_digest_html(all_articles)
 
-    html_content = generate_digest_html(all_articles)
+    # For now, let's send a simple HTML email listing titles
+    titles_html = "<ul>" + "".join(f"<li>{a['title']}</li>" for a in all_articles) + "</ul>"
+    html_content = f"<h1>Weekly Echo-AI Articles</h1>{titles_html}"
+
     send_digest_email(html_content)
 
 if __name__ == "__main__":
