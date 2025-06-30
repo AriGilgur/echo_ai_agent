@@ -29,4 +29,3 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
           RECIPIENTS: ${{ secrets.RECIPIENTS }}
-from agent.search import search_pubmed, search_arxiv, save_raw_results
