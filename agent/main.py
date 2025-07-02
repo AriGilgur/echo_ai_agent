@@ -24,9 +24,9 @@ def main():
     #
     # html_content = generate_digest_html(all_articles)
 
-  # For now, let's send a simple HTML email listing hyperlinked titles
-titles_html = "<ul>" + "".join(f"<li><a href='{a['link']}'>{a['title']}</a></li>" for a in all_articles) + "</ul>"
-html_content = f"<h1>Weekly Echo-AI Articles</h1>{titles_html}"
+    # For now, let's send a simple HTML email listing hyperlinked titles
+    titles_html = "<ul>" + "".join(f"<li><a href='{a['link']}'>{a['title']}</a></li>" for a in all_articles) + "</ul>"
+    html_content = f"<h1>Weekly Echo-AI Articles</h1>{titles_html}"
 
     print("Sending email...")
     send_digest_email(html_content)
