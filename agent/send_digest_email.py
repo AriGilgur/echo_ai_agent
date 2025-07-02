@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 from sendgrid import SendGridAPIClient
@@ -20,8 +19,8 @@ def format_html(df):
     html += "</ul>"
     return html
 
-def send_email(html_content):
-    # Support multiple comma-separated emails from env
+# This function is exported so main.py can import and use it
+def send_digest_email(html_content):
     raw_recipients = os.environ.get("RECIPIENTS", "")
     recipient_list = [email.strip() for email in raw_recipients.split(",") if email.strip()]
 
@@ -42,7 +41,7 @@ def send_email(html_content):
 def main():
     df = load_digest()
     html_content = format_html(df)
-    send_email(html_content)
+    send_digest_email(html_content)
 
 if __name__ == "__main__":
     main()
