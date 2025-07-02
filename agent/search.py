@@ -41,7 +41,9 @@ def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
 
     return articles
 
-def fetch_arxiv_articles(query="echocardiography AI", max_results=10):
+from datetime import datetime, timedelta
+
+def fetch_arxiv_articles(query, max_results=25):
     search = arxiv.Search(
         query=query,
         max_results=max_results,
@@ -50,14 +52,25 @@ def fetch_arxiv_articles(query="echocardiography AI", max_results=10):
     )
 
     papers = []
+    cutoff_date = datetime.utcnow() - timedelta(days=7)
+
     for result in search.results():
-        papers.append({
-            "title": result.title,
-            "summary": result.summary,
-            "authors": [a.name for a in result.authors],
-            "published": result.published.strftime("%Y-%m-%d"),
-            "link": result.entry_id,
-        })
+        if result.published < cutoff_date:
+            continue
+
+        title = result.title.lower()
+        summary = result.summary.lower()
+
+        if "echocardiography" in title + summary and ("ai" in title + summary or "artificial intelligence" in title + summary):
+            papers.append({
+                "title": result.title,
+                "summary": result.summary,
+                "authors": [a.name for a in result.authors],
+                "published": result.published.strftime("%Y-%m-%d"),
+                "link": result.entry_id,
+            })
+
+    return papers
 
     return papers
 
