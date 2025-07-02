@@ -6,7 +6,7 @@ from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_raw_r
 # from agent.extract_authors import extract_emails
 # from agent.summarize_and_prepare_email import generate_digest_html
 from agent.summarize_and_prepare_email import main as prepare_email_html
-from agent.send_digest_email import send_digest_email
+from agent.send_digest_email import send_email as send_digest_email
 
 def main():
     print("Fetching articles...")

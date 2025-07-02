@@ -41,7 +41,7 @@ def format_html(df):
     """
     return html
 
-def send_email(html_content):
+def send_digest_email(html_content):
     recipients = os.environ.get("RECIPIENTS")
     if not recipients:
         raise ValueError("RECIPIENTS not set in environment variables.")
