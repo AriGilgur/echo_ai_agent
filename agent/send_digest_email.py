@@ -1,4 +1,3 @@
-# send_email.py
 
 import os
 import pandas as pd
@@ -22,12 +21,17 @@ def format_html(df):
     return html
 
 def send_email(html_content):
+    # Support multiple comma-separated emails from env
+    raw_recipients = os.environ.get("RECIPIENTS", "")
+    recipient_list = [email.strip() for email in raw_recipients.split(",") if email.strip()]
+
     message = Mail(
         from_email='gilgurari@gmail.com',
-        to_emails=os.environ.get("RECIPIENTS"),
+        to_emails=recipient_list,
         subject="Weekly Digest: Echo-AI Articles",
         html_content=html_content
     )
+
     try:
         sg = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
         response = sg.send(message)
