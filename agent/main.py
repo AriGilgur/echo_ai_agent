@@ -5,6 +5,14 @@ from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_raw_r
 # Assuming you have these modules, otherwise comment these out or implement accordingly:
 # from agent.extract_authors import extract_emails
 # from agent.summarize_and_prepare_email import generate_digest_html
+from agent.summarize_and_prepare_email import main as prepare_email_html
+from agent.send_email import send_digest_email
+
+def main():
+    print("Preparing email content...")
+    html_content = prepare_email_html()
+    print("Sending email...")
+    send_digest_email(html_content)
 
 def send_digest_email(html_content):
     message = Mail(
