@@ -1,9 +1,9 @@
-name: weekly-digest
+name: Weekly Echo-AI Email Agent
 
 on:
   schedule:
-    - cron: '0 16 * * MON'  # Every Monday 16:00 UTC
-  workflow_dispatch:        # Manual trigger option
+    - cron: '0 16 * * MON'  # Every Monday at 16:00 UTC
+  workflow_dispatch:        # Allow manual run from GitHub UI
 
 jobs:
   send-email:
@@ -13,19 +13,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Python 3.11
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run email agent script
+      - name: Run Echo-AI Email Agent
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python agent/main.py
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          RECIPIENTS: ${{ secrets.RECIPIENTS }}

@@ -41,23 +41,24 @@ def format_html(df):
     """
     return html
 
-def send_digest_email(html_content):
-    recipients = os.environ.get("RECIPIENTS")
-    if not recipients:
-        raise ValueError("RECIPIENTS not set in environment variables.")
-    
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+def send_email(html_content):
     message = Mail(
         from_email='gilgurari@gmail.com',
-        to_emails=[email.strip() for email in recipients.split(',')],
-        subject="🫀 Weekly Digest: Echo-AI Research Highlights",
+        to_emails='anna@icardio.com',
+        subject='Weekly Echo-AI Articles',
         html_content=html_content
     )
     try:
-        sg = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
-        print(f"Email sent! Status code: {response.status_code}")
+        print(f"Email sent, status code {response.status_code}")
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Error sending email: {e}")
+
 
 def main():
     df = load_digest()
