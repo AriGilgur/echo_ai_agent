@@ -23,12 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Echo-AI Email Agent
+          - name: Run Echo-AI Email Agent
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python agent/main.py
         env:
-          env:
-  SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
