@@ -18,11 +18,12 @@ jobs:
         with:
           python-version: '3.11'
 
-    - name: Run email agent script
-  run: |
-    export PYTHONPATH=$PYTHONPATH:$(pwd)
-    python agent/main.py
-  env:
-    SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Run email agent script
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python agent/main.py
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
 
