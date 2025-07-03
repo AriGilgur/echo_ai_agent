@@ -3,6 +3,7 @@ import json
 from datetime import datetime, timedelta
 from Bio import Entrez
 import arxiv
+import pytz
 
 # Set your email here for NCBI API rules
 Entrez.email = "anna@icardio.com"
@@ -41,8 +42,6 @@ def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
 
     return articles
 
-from datetime import datetime, timedelta
-
 def fetch_arxiv_articles(query, max_results=25):
     search = arxiv.Search(
         query=query,
@@ -52,10 +51,14 @@ def fetch_arxiv_articles(query, max_results=25):
     )
 
     papers = []
-    cutoff_date = datetime.utcnow() - timedelta(days=7)
+    cutoff_date = datetime.now(pytz.UTC) - timedelta(days=7)
 
     for result in search.results():
-        if result.published < cutoff_date:
+        published_aware = result.published
+        if published_aware.tzinfo is None:
+            published_aware = published_aware.replace(tzinfo=pytz.UTC)
+
+        if published_aware < cutoff_date:
             continue
 
         title = result.title.lower()
@@ -66,11 +69,9 @@ def fetch_arxiv_articles(query, max_results=25):
                 "title": result.title,
                 "summary": result.summary,
                 "authors": [a.name for a in result.authors],
-                "published": result.published.strftime("%Y-%m-%d"),
+                "published": published_aware.strftime("%Y-%m-%d"),
                 "link": result.entry_id,
             })
-
-    return papers
 
     return papers
 
