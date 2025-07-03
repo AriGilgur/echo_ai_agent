@@ -1,4 +1,7 @@
 import os
+import sys
+print(sys.executable)
+print(sys.path)
 from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_raw_results
 from agent.summarize_and_prepare_email import main as prepare_email_html
 from agent import send_digest_email
