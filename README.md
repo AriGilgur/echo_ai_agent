@@ -68,8 +68,8 @@ RECIPIENTS
 └── requirements.txt
 
 📷 Sample Email
-![Screenshot 2025-07-05 153907](https://github.com/user-attachments/assets/a03ca75f-ea06-44e4-a640-732db7411237)
 
+![Screenshot 2025-07-05 153907](https://github.com/user-attachments/assets/a03ca75f-ea06-44e4-a640-732db7411237)
 
 
 🚀 License
