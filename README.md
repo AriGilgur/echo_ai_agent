@@ -68,14 +68,9 @@ RECIPIENTS
 └── requirements.txt
 
 📷 Sample Email
-
-Include a screenshot of the weekly digest email here
-
+![Screenshot 2025-07-05 153907](https://github.com/user-attachments/assets/a03ca75f-ea06-44e4-a640-732db7411237)
 
 
-⏱ Demo GIF
-
-Include the recorded demo here (Peek or VS Code recorder)
 
 🚀 License
 
