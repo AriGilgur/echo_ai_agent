@@ -41,14 +41,10 @@ def format_html(df):
     """
     return html
 
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
 def send_email(html_content):
     message = Mail(
         from_email='gilgurari@gmail.com',
-        to_emails='anna@icardio.com',
+        to_emails=['anna@icardio.ai', 'vlad@abcmilwaukee.com'],
         subject='Weekly Echo-AI Articles',
         html_content=html_content
     )
@@ -59,7 +55,6 @@ def send_email(html_content):
     except Exception as e:
         print(f"Error sending email: {e}")
 
-
 def main():
     df = load_digest()
     html_content = format_html(df)
@@ -67,3 +62,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
