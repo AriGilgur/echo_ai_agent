@@ -4,6 +4,10 @@ from datetime import datetime, timedelta
 import pytz
 import os
 import json
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from dotenv import load_dotenv
+
 
 Entrez.email = "anna@icardio.com"
 
@@ -77,6 +81,25 @@ def save_to_csv(pubmed, arxiv):
     df.to_csv("data/papers_with_authors.csv", index=False)
     print(f"Saved {len(all_articles)} articles to data/papers_with_authors.csv")
 
+load_dotenv()
+
+def send_email(html_content):
+    """
+    Send an HTML email using SendGrid.
+    """
+    message = Mail(
+        from_email="gilgurari@gmail.com",      # Your verified sender email
+        to_emails="anna@icardio.com",          # Recipient email
+        subject="🫀 Weekly Echo-AI Research Digest",
+        html_content=html_content
+    )
+
+    try:
+        sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+        response = sg.send(message)
+        print(f"✅ Email sent: {response.status_code}")
+    except Exception as e:
+        print(f"❌ Error sending email: {str(e)}")
 if __name__ == "__main__":
     query = "echocardiography AI"
     pubmed = fetch_pubmed_articles(query=query, max_results=20)

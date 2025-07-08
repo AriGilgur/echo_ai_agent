@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_to_csv
-from agent.send_digest_email import send_digest_email
+from agent.send_digest_email import send_email
 
 load_dotenv()
 
@@ -95,7 +95,7 @@ def main():
     html_content = generate_digest_html(articles_data)
 
     print("Sending email...")
-    send_digest_email(html_content)
+    send_email(html_content)
     print("Email sent.")
 
 if __name__ == "__main__":
