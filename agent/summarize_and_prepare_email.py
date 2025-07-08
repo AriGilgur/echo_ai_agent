@@ -127,14 +127,16 @@ def generate_digest_html(articles):
 def main():
     df = pd.read_csv(MASTER_FILE)
 
-    # Add summaries if not already present
+    # Generate summaries for each abstract
     summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
     df["summary"] = summaries
 
+    # Save digest CSV
     digest_df = df[["title", "summary", "lead_author", "author_email", "link"]]
     digest_df.to_csv("data/digest_ready.csv", index=False)
     print("Summaries created and saved to data/digest_ready.csv")
 
+    # Generate and return HTML
     html_content = generate_digest_html(digest_df.to_dict(orient="records"))
     return html_content
 
