@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from datetime import datetime, timedelta
 from Bio import Entrez
 import arxiv
@@ -7,6 +8,12 @@ import pytz
 
 # Set your email here for NCBI API rules
 Entrez.email = "anna@icardio.com"
+
+def extract_email(text):
+    if not text:
+        return None
+    matches = re.findall(r'[\w\.-]+@[\w\.-]+\.\w+', text)
+    return matches[0] if matches else None
 
 def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
     today = datetime.today()
@@ -32,10 +39,14 @@ def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
 
     articles = []
     for res in results:
+        lead_author = res.get("AuthorList", [])[0] if res.get("AuthorList") else "Unknown"
+        email = extract_email(res.get("Summary", ""))
         articles.append({
             "title": res.get("Title"),
             "summary": res.get("Summary", ""),
             "authors": res.get("AuthorList", []),
+            "lead_author": lead_author,
+            "author_email": email or "Not available",
             "published": res.get("PubDate"),
             "link": f"https://pubmed.ncbi.nlm.nih.gov/{res.get('Id')}/"
         })
@@ -65,10 +76,13 @@ def fetch_arxiv_articles(query, max_results=25):
         summary = result.summary.lower()
 
         if "echocardiography" in title + summary and ("ai" in title + summary or "artificial intelligence" in title + summary):
+            lead_author = result.authors[0].name if result.authors else "Unknown"
             papers.append({
                 "title": result.title,
                 "summary": result.summary,
                 "authors": [a.name for a in result.authors],
+                "lead_author": lead_author,
+                "author_email": "Not available",  # arXiv does not provide emails
                 "published": published_aware.strftime("%Y-%m-%d"),
                 "link": result.entry_id,
             })

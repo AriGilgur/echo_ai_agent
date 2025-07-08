@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 
-load_dotenv()  # loads .env file if you have one with OPENAI_API_KEY
+load_dotenv()
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
@@ -28,20 +28,79 @@ def summarize_abstract(abstract_text):
         max_tokens=150,
         temperature=0.5,
     )
-    summary = response.choices[0].message.content.strip()
-    return summary
+    return response.choices[0].message.content.strip()
 
 def generate_digest_html(articles):
     """
-    Generate an HTML email body from a list of article dicts.
-    Each article dict must contain keys: 'title', 'link', 'summary', 'lead_author', 'author_email'.
+    Generate an organized HTML email body from a list of article dicts.
+    Each dict should have: title, link, summary, lead_author, author_email.
     """
     html = """
     <html>
+    <head>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f8f9fa;
+          color: #212529;
+          padding: 20px;
+        }
+        .container {
+          max-width: 700px;
+          margin: auto;
+          background-color: white;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+          text-align: center;
+          color: #007BFF;
+          margin-bottom: 30px;
+        }
+        .article {
+          border-bottom: 1px solid #dee2e6;
+          padding-bottom: 15px;
+          margin-bottom: 15px;
+        }
+        .article:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+        .title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #0056b3;
+          text-decoration: none;
+        }
+        .summary {
+          margin: 8px 0;
+          font-size: 14px;
+          line-height: 1.4;
+          color: #495057;
+        }
+        .author-info {
+          font-size: 13px;
+          color: #6c757d;
+        }
+        .read-more {
+          display: inline-block;
+          margin-top: 8px;
+          padding: 6px 12px;
+          background-color: #007BFF;
+          color: white !important;
+          text-decoration: none;
+          border-radius: 4px;
+          font-size: 13px;
+        }
+      </style>
+    </head>
     <body>
+      <div class="container">
         <h2>Weekly Echo-AI Articles Digest</h2>
-        <ul>
     """
+
     for article in articles:
         title = article.get("title", "No Title")
         link = article.get("link", "#")
@@ -50,48 +109,37 @@ def generate_digest_html(articles):
         author_email = article.get("author_email", "No email")
 
         html += f"""
-        <li style="margin-bottom: 20px;">
-            <a href="{link}" style="font-size: 18px; font-weight: bold; text-decoration: none; color: #2a6ebb;">{title}</a><br/>
-            <small>Lead Author: {lead_author} ({author_email})</small><br/>
-            <p style="max-width: 600px;">{summary}</p>
-        </li>
+        <div class="article">
+          <a href="{link}" class="title">{title}</a>
+          <p class="summary">{summary}</p>
+          <p class="author-info">Lead Author: {lead_author} | Email: {author_email}</p>
+          <a href="{link}" class="read-more">Read Full Article</a>
+        </div>
         """
 
     html += """
-        </ul>
-        <p>--<br/>Echo-AI Weekly Digest</p>
+      </div>
     </body>
     </html>
     """
     return html
 
 def main():
-    # Load papers with authors info
     df = pd.read_csv(MASTER_FILE)
 
-    # Generate summaries for each abstract
-    summaries = []
-    for idx, row in df.iterrows():
-        abstract = row.get("abstract", "")
-        summary = summarize_abstract(abstract)
-        summaries.append(summary)
-    df["summary"] = summaries
+    # Add summaries if not already present
+    if "summary" not in df.columns or df["summary"].isnull().all():
+        summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
+        df["summary"] = summaries
 
-    # Save the digest CSV for records or other uses
     digest_df = df[["title", "summary", "lead_author", "author_email", "link"]]
     digest_df.to_csv("data/digest_ready.csv", index=False)
     print("Summaries created and saved to data/digest_ready.csv")
 
-    # Convert to list of dicts for HTML generation
-    articles = digest_df.to_dict(orient="records")
-    html_content = generate_digest_html(articles)
-
-    # Return the html_content so your main script can send it as email body
+    html_content = generate_digest_html(digest_df.to_dict(orient="records"))
     return html_content
 
-
 if __name__ == "__main__":
-    # For testing, just generate and save the html digest to a file
     html = main()
     with open("data/email_digest.html", "w", encoding="utf-8") as f:
         f.write(html)
