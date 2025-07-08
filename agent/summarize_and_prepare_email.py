@@ -128,9 +128,8 @@ def main():
     df = pd.read_csv(MASTER_FILE)
 
     # Add summaries if not already present
-        if True:
-        summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
-        df["summary"] = summaries
+    summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
+    df["summary"] = summaries
 
     digest_df = df[["title", "summary", "lead_author", "author_email", "link"]]
     digest_df.to_csv("data/digest_ready.csv", index=False)
@@ -138,6 +137,7 @@ def main():
 
     html_content = generate_digest_html(digest_df.to_dict(orient="records"))
     return html_content
+
 
 if __name__ == "__main__":
     html = main()
