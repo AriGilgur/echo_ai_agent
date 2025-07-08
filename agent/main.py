@@ -8,7 +8,6 @@ from agent.send_digest_email import send_digest_email
 
 load_dotenv()
 
-# Load OpenAI API key
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OPENAI_API_KEY not set in environment variables")
@@ -86,22 +85,17 @@ def main():
 
     save_to_csv(pubmed_articles, arxiv_articles)
 
-    # Load saved CSV and summarize abstracts
     df = pd.read_csv(MASTER_FILE)
     summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
     df["summary"] = summaries
-
-    # Save updated CSV with summaries
     df.to_csv(MASTER_FILE, index=False)
     print(f"Summaries added and saved to {MASTER_FILE}")
 
-    # Generate HTML email content
     articles_data = df.to_dict(orient="records")
     html_content = generate_digest_html(articles_data)
 
-    # Send email (adjust recipient and sender inside send_email)
     print("Sending email...")
-    send_email(html_content)
+    send_digest_email(html_content)
     print("Email sent.")
 
 if __name__ == "__main__":
