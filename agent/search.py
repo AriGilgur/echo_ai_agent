@@ -9,14 +9,7 @@ import pytz
 # Set your email here for NCBI API rules
 Entrez.email = "anna@icardio.com"
 
-
-def extract_email_from_affiliation(affiliation):
-    # Simple regex to find emails in text
-    email_pattern = r'[\w\.-]+@[\w\.-]+\.\w+'
-    matches = re.findall(email_pattern, affiliation or "")
-    return matches[0] if matches else None
-
-def fetch_pubmed_articles_with_emails(query="echocardiography AI", max_results=10):
+def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
     today = datetime.today()
     last_week = today - timedelta(days=7)
 
@@ -35,50 +28,25 @@ def fetch_pubmed_articles_with_emails(query="echocardiography AI", max_results=1
         print("No PubMed results found for query.")
         return []
 
-    # Fetch full details for each article to get affiliations
-    handle = Entrez.efetch(db="pubmed", id=",".join(ids), retmode="xml")
-    records = Entrez.read(handle)
+    summaries = Entrez.esummary(db="pubmed", id=",".join(ids))
+    results = Entrez.read(summaries)
 
     articles = []
-    for article in records['PubmedArticle']:
-        article_title = article['MedlineCitation']['Article']['ArticleTitle']
-        abstract = article['MedlineCitation']['Article'].get('Abstract', {}).get('AbstractText', [""])[0]
-        pub_date = article['MedlineCitation']['Article']['Journal']['JournalIssue']['PubDate']
-        pmid = article['MedlineCitation']['PMID']
-        link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
-
-        authors = []
-        emails = []
-        author_list = article['MedlineCitation']['Article'].get('AuthorList', [])
-        for author in author_list:
-            name = ""
-            if 'LastName' in author and 'ForeName' in author:
-                name = f"{author['ForeName']} {author['LastName']}"
-            elif 'CollectiveName' in author:
-                name = author['CollectiveName']
-            authors.append(name)
-
-            # Try extract emails from AffiliationInfo
-            affs = author.get('AffiliationInfo', [])
-            for aff in affs:
-                email = extract_email_from_affiliation(aff.get('Affiliation', ''))
-                if email:
-                    emails.append(email)
-
+    for res in results:
+        authors = res.get("AuthorList", [])
         lead_author = authors[0] if authors else "Unknown"
-        author_email = emails[0] if emails else "No email found"
-
         articles.append({
-            "title": article_title,
-            "summary": abstract,
+            "title": res.get("Title"),
+            "summary": res.get("Summary", ""),
             "authors": authors,
-            "published": str(pub_date),
-            "link": link,
             "lead_author": lead_author,
-            "author_email": author_email,
+            "author_email": "Not available",  # PubMed API does not provide emails here
+            "published": res.get("PubDate"),
+            "link": f"https://pubmed.ncbi.nlm.nih.gov/{res.get('Id')}/"
         })
 
     return articles
+
 
 
 def fetch_arxiv_articles(query, max_results=25):
