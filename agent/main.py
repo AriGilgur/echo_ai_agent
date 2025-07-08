@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from openai import OpenAI
 from agent.search import fetch_pubmed_articles, fetch_arxiv_articles, save_to_csv
-from agent.send_digest_email import send_email  # your existing send email function
+from agent.send_digest_email import send_digest_email
 
 load_dotenv()
 
