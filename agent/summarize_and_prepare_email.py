@@ -128,7 +128,7 @@ def main():
     df = pd.read_csv(MASTER_FILE)
 
     # Add summaries if not already present
-    if "summary" not in df.columns or df["summary"].isnull().all():
+        if True:
         summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
         df["summary"] = summaries
 
