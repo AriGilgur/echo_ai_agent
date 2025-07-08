@@ -101,12 +101,13 @@ def generate_digest_html(articles):
         <h2>Weekly Echo-AI Articles Digest</h2>
     """
 
+    # 🟡 Loop over each article and add its HTML block
     for article in articles:
         title = article.get("title", "No Title")
         link = article.get("link", "#")
-        summary = article.get("summary", "")
+        summary = article.get("summary", "No summary available.")
         lead_author = article.get("lead_author", "Unknown Author")
-        author_email = article.get("author_email", "No email")
+        author_email = article.get("author_email", "No email provided")
 
         html += f"""
         <div class="article">
