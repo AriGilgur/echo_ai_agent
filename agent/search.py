@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from Bio import Entrez
 import arxiv
 import pytz
+import pandas as pd
 
 # Set your email here for NCBI API rules
 Entrez.email = "anna@icardio.com"
@@ -46,8 +47,6 @@ def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
         })
 
     return articles
-
-
 
 def fetch_arxiv_articles(query, max_results=25):
     search = arxiv.Search(
@@ -95,10 +94,20 @@ def save_raw_results(pubmed_results, arxiv_results):
 
     print(f"Saved results to {path}")
 
+def save_to_csv(pubmed_results, arxiv_results):
+    all_articles = pubmed_results + arxiv_results
+    df = pd.DataFrame(all_articles)
+    os.makedirs("data", exist_ok=True)
+    df.to_csv("data/papers_with_authors.csv", index=False)
+    print(f"Saved {len(all_articles)} articles to data/papers_with_authors.csv")
+
 if __name__ == "__main__":
-    pubmed = fetch_pubmed_articles()
-    arxiv = fetch_arxiv_articles()
+    query = "echocardiography AI"
+    pubmed = fetch_pubmed_articles(query=query, max_results=20)
+    arxiv = fetch_arxiv_articles(query=query, max_results=20)
     save_raw_results(pubmed, arxiv)
+    save_to_csv(pubmed, arxiv)
+
 
 
 
