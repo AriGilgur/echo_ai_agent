@@ -8,7 +8,6 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 
-
 Entrez.email = "anna@icardio.com"
 
 def fetch_pubmed_articles(query="echocardiography AI", max_results=10):
@@ -87,12 +86,12 @@ def send_email(html_content):
     """
     Send an HTML email using SendGrid.
     """
-  message = Mail(
-    from_email="gilgurari@gmail.com",
-    to_emails=["anna@icardio.com", "vlad@abcmilwaukee.com"],
-    subject="🫀 Weekly Echo-AI Research Digest",
-    html_content=html_content
-)
+    message = Mail(
+        from_email="gilgurari@gmail.com",
+        to_emails=["anna@icardio.com", "vlad@abcmilwaukee.com"],
+        subject="🫀 Weekly Echo-AI Research Digest",
+        html_content=html_content
+    )
 
     try:
         sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
@@ -100,9 +99,9 @@ def send_email(html_content):
         print(f"✅ Email sent: {response.status_code}")
     except Exception as e:
         print(f"❌ Error sending email: {str(e)}")
+
 if __name__ == "__main__":
     query = "echocardiography AI"
     pubmed = fetch_pubmed_articles(query=query, max_results=20)
     arxiv = fetch_arxiv_articles(query=query, max_results=20)
     save_to_csv(pubmed, arxiv)
-
