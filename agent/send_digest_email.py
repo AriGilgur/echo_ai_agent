@@ -87,12 +87,12 @@ def send_email(html_content):
     """
     Send an HTML email using SendGrid.
     """
-    message = Mail(
-        from_email="gilgurari@gmail.com",      # Your verified sender email
-        to_emails="anna@icardio.com",          # Recipient email
-        subject="🫀 Weekly Echo-AI Research Digest",
-        html_content=html_content
-    )
+  message = Mail(
+    from_email="gilgurari@gmail.com",
+    to_emails=["anna@icardio.com", "vlad@abcmilwaukee.com"],
+    subject="🫀 Weekly Echo-AI Research Digest",
+    html_content=html_content
+)
 
     try:
         sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
