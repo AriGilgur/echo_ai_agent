@@ -36,7 +36,7 @@ def main():
 
     # Generate and send email
     print("Summarizing and sending email...")
-    html_content = prepare_email_html(all_articles)
+    html_content = prepare_email_html()
     send_digest_email.send_email(html_content)
 
 if __name__ == "__main__":
