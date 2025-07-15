@@ -88,7 +88,7 @@ def send_email(html_content):
     """
     message = Mail(
         from_email="gilgurari@gmail.com",
-        to_emails=["anna@icardio.com", "vlad@abcmilwaukee.com"],
+        to_emails=["anna@icardio.ai", "vlad@abcmilwaukee.com"],
         subject="🫀 Weekly Echo-AI Research Digest",
         html_content=html_content
     )
