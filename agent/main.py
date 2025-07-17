@@ -60,7 +60,6 @@ def generate_digest_html(articles):
         html += f"""
         <div class="article">
           <a href="{link}" class="title">{title}</a>
-          <p class="summary">{summary}</p>
           <p class="author-info">Lead Author: {lead_author}</p>
           <a href="{link}" class="read-more">Read Full Article</a>
         </div>
