@@ -33,7 +33,7 @@ def summarize_abstract(abstract_text):
 def generate_digest_html(articles):
     """
     Generate an organized HTML email body from a list of article dicts.
-    Each dict should have: title, link, summary, lead_author, author_email.
+    Each dict should have: title, link, summary, lead_author.
     """
     html = """
     <html>
@@ -101,19 +101,17 @@ def generate_digest_html(articles):
         <h2>Weekly Echo-AI Articles Digest</h2>
     """
 
-    # 🟡 Loop over each article and add its HTML block
     for article in articles:
         title = article.get("title", "No Title")
         link = article.get("link", "#")
         summary = article.get("summary", "No summary available.")
         lead_author = article.get("lead_author", "Unknown Author")
-        author_email = article.get("author_email", "No email provided")
 
         html += f"""
         <div class="article">
           <a href="{link}" class="title">{title}</a>
           <p class="summary">{summary}</p>
-          <p class="author-info">Lead Author: {lead_author} | Email: {author_email}</p>
+          <p class="author-info">Lead Author: {lead_author}</p>
           <a href="{link}" class="read-more">Read Full Article</a>
         </div>
         """
@@ -132,8 +130,8 @@ def main():
     summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
     df["summary"] = summaries
 
-    # Save digest CSV
-    digest_df = df[["title", "summary", "lead_author", "author_email", "link"]]
+    # Save digest CSV without author_email
+    digest_df = df[["title", "summary", "lead_author", "link"]]
     digest_df.to_csv("data/digest_ready.csv", index=False)
     print("Summaries created and saved to data/digest_ready.csv")
 
@@ -147,3 +145,4 @@ if __name__ == "__main__":
     with open("data/email_digest.html", "w", encoding="utf-8") as f:
         f.write(html)
     print("HTML digest saved to data/email_digest.html")
+

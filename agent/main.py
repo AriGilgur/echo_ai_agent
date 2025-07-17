@@ -58,13 +58,12 @@ def generate_digest_html(articles):
         link = article.get("link", "#")
         summary = article.get("summary", "No summary available.")
         lead_author = article.get("lead_author", "Unknown Author")
-        author_email = article.get("author_email", "No email provided")
 
         html += f"""
         <div class="article">
           <a href="{link}" class="title">{title}</a>
           <p class="summary">{summary}</p>
-          <p class="author-info">Lead Author: {lead_author} | Email: {author_email}</p>
+          <p class="author-info">Lead Author: {lead_author}</p>
           <a href="{link}" class="read-more">Read Full Article</a>
         </div>
         """
@@ -86,8 +85,16 @@ def main():
     save_to_csv(pubmed_articles, arxiv_articles)
 
     df = pd.read_csv(MASTER_FILE)
+
+    # Summarize abstracts, ignoring missing abstracts gracefully
     summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
     df["summary"] = summaries
+
+    # Remove author_email and abstract columns if present before saving
+    for col in ["author_email", "abstract"]:
+        if col in df.columns:
+            df.drop(columns=[col], inplace=True)
+
     df.to_csv(MASTER_FILE, index=False)
     print(f"Summaries added and saved to {MASTER_FILE}")
 
@@ -95,7 +102,7 @@ def main():
     html_content = generate_digest_html(articles_data)
 
     print("Sending email...")
-    send_email(html_content)  # <-- sends email here
+    send_email(html_content)
     print("Email sent.")
 
 if __name__ == "__main__":
