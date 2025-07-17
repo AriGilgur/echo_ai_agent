@@ -76,6 +76,7 @@ def main():
     query = "echocardiography AI"
     pubmed_articles = fetch_pubmed_articles(query=query, max_results=20)
     arxiv_articles = fetch_arxiv_articles(query=query, max_results=20)
+    print(f"Sample arXiv article: {arxiv_articles[0] if arxiv_articles else 'None returned'}")
 
     print(f"Fetched {len(pubmed_articles)} PubMed and {len(arxiv_articles)} arXiv articles.")
 
