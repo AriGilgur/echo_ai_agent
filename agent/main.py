@@ -86,15 +86,6 @@ def main():
 
     df = pd.read_csv(MASTER_FILE)
 
-    # Summarize abstracts, ignoring missing abstracts gracefully
-    summaries = [summarize_abstract(row.get("abstract", "")) for _, row in df.iterrows()]
-    df["summary"] = summaries
-
-    # Remove author_email and abstract columns if present before saving
-    for col in ["author_email", "abstract"]:
-        if col in df.columns:
-            df.drop(columns=[col], inplace=True)
-
     df.to_csv(MASTER_FILE, index=False)
     print(f"Summaries added and saved to {MASTER_FILE}")
 
