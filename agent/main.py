@@ -44,7 +44,6 @@ def generate_digest_html(articles):
         .article {border-bottom: 1px solid #dee2e6; padding-bottom: 15px; margin-bottom: 15px;}
         .article:last-child {border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
         .title {font-size: 18px; font-weight: bold; color: #0056b3; text-decoration: none;}
-        .summary {margin: 8px 0; font-size: 14px; line-height: 1.4; color: #495057;}
         .author-info {font-size: 13px; color: #6c757d;}
         .read-more {display: inline-block; margin-top: 8px; padding: 6px 12px; background-color: #007BFF; color: white !important; text-decoration: none; border-radius: 4px; font-size: 13px;}
       </style>
@@ -56,7 +55,6 @@ def generate_digest_html(articles):
     for article in articles:
         title = article.get("title", "No Title")
         link = article.get("link", "#")
-        summary = article.get("summary", "No summary available.")
         lead_author = article.get("lead_author", "Unknown Author")
 
         html += f"""
