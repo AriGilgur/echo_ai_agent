@@ -87,8 +87,8 @@ def send_email(html_content):
     Send an HTML email using SendGrid.
     """
     message = Mail(
-        from_email="gilgurari@gmail.com",
-        to_emails=["anna@icardio.ai", "vlad@abcmilwaukee.com"],
+        from_email="anna@icardio.ai",
+        to_emails=["anna@icardio.ai", "vlad@abcmilwaukee.com", "Joseph@icardio.ai", "roman@icardio.ai"],
         subject="🫀 Weekly Echo-AI Research Digest",
         html_content=html_content
     )
